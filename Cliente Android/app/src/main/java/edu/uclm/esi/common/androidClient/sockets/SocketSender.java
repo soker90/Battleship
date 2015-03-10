@@ -14,7 +14,7 @@ public class SocketSender {
 	private int port;
 	
 	private SocketSender() {
-		this.host="192.168.1.128";
+		this.host="localhost";
 		this.port=3000;
 	}
 	

@@ -27,7 +27,7 @@ public class Broker {
 	}
 	
 	public Connection getDBPrivilegiada() throws SQLException {
-		return DriverManager.getConnection(url, "gestorjuegos", "");
+		return DriverManager.getConnection(url, "root", "");
 	}
 	
 	public Connection getDB(String email, String password) throws SQLException {
