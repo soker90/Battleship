@@ -44,7 +44,7 @@ public abstract class Match {
 		if (game.getId()==1)
 			return new TresEnRaya(game);
 		if (game.getId()==2)
-			return null;
+			return new HundirLaFota(game);
 		return null;
 	}
 
