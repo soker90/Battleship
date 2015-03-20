@@ -140,16 +140,49 @@ public class HundirLaFota extends Match{
 	
 	protected void addBoat(int player,int size, int[] row, int[] col){
 		if(this.userWithTurn.equals(this.players.get(0))) {
+			for (int i = 0; i < col.length; i++) {
+				
+			}
+		}else{
 			
 		}
 
 	}
 	
-	protected boolean validate(int size, int row[], int[] col){
-		for (int i = 0; i < col.length; i++) {
-			
+	protected boolean validate(int row[], int[] col,int player){
+		boolean ok = false;
+
+		for (int i = 0; i < row.length-1; i++) {
+			if(row[i] == row[i+1]){
+				if(col[i]+1 == col[i+1])
+					ok = true;
+				else{
+					ok=false;
+					break;
+				}
+			}else{
+				ok = false;
+				break;
+			}
 		}
-		return true;
+		
+		if(!ok){
+			for (int i = 0; i < col.length-1; i++) {
+				if(col[i] == col[i+1]){
+					if(row[i] + 1 == row[i+1])
+						ok = true;
+					else{
+						ok = false;
+						break;
+					}
+				} else {
+					ok = false;
+					break;
+				}
+			}
+		}
+		
+		return ok;
 	}
 
 }
