@@ -7,10 +7,9 @@ import java.util.Random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.maco.tresenraya.jsonMessages.TresEnRayaBoardMessage;
-import com.maco.tresenraya.jsonMessages.TresEnRayaMovement;
-import com.maco.tresenraya.jsonMessages.TresEnRayaWaitingMessage;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaBoardMessage;
+import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaMovement;
+import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaWaitingMessage;
 
 import edu.uclm.esi.common.jsonMessages.ErrorMessage;
 import edu.uclm.esi.common.jsonMessages.JSONMessage;
@@ -45,8 +44,8 @@ public class HundirLaFota extends Match{
 	protected void postAddUser(User user) {
 		if (this.players.size()==2) {
 			Random dado=new Random();
-			JSONMessage jsTurn=new TresEnRayaWaitingMessage("Match ready. You have the turn.");
-			JSONMessage jsNoTurn=new TresEnRayaWaitingMessage("Match ready. Wait for the opponent to move.");
+			JSONMessage jsTurn=new HundirLaFlotaWaitingMessage("Match ready. You have the turn.");
+			JSONMessage jsNoTurn=new HundirLaFlotaWaitingMessage("Match ready. Wait for the opponent to move.");
 			if (dado.nextBoolean()) {
 				this.userWithTurn=this.players.get(0);
 				try {
@@ -67,7 +66,7 @@ public class HundirLaFota extends Match{
 				}
 			}
 			try {
-				JSONMessage jsBoard=new TresEnRayaBoardMessage(this.toString());
+				JSONMessage jsBoard=new HundirLaFlotaBoardMessage(this.toString());
 				Notifier.get().post(this.players.get(0), jsBoard);
 				Notifier.get().post(this.players.get(1), jsBoard);
 			} catch (Exception e) {
@@ -75,7 +74,7 @@ public class HundirLaFota extends Match{
 				e.printStackTrace();
 			}
 		} else {
-			JSONMessage jsm=new TresEnRayaWaitingMessage("Waiting for one more player");
+			JSONMessage jsm=new HundirLaFlotaWaitingMessage("Waiting for one more player");
 			try {
 				Notifier.get().post(this.players.get(0), jsm);
 			} catch (IOException e) {
@@ -97,7 +96,7 @@ public class HundirLaFota extends Match{
 	@Override
 	protected void postMove(User user, JSONObject jsoMovement) throws Exception {
 		int userActivo;
-		if (!jsoMovement.get("type").equals(TresEnRayaMovement.class.getSimpleName())) {
+		if (!jsoMovement.get("type").equals(HundirLaFlotaMovement.class.getSimpleName())) {
 			throw new Exception("Unexpected type of movement");
 		}
 		int row=jsoMovement.getInt("row");
@@ -132,7 +131,7 @@ public class HundirLaFota extends Match{
 				this.squares.get(1)[row][col]=O;
 				this.userWithTurn=this.players.get(0);
 			}
-			result=new TresEnRayaBoardMessage(this.toString());
+			result=new HundirLaFlotaBoardMessage(this.toString());
 			Notifier.get().post(this.players, result);
 		}
 		
