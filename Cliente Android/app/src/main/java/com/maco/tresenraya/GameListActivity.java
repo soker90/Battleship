@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.maco.tresenraya.domain.HundirLaFlota;
 import com.maco.tresenraya.domain.TresEnRaya;
 import com.maco.tresenraya.jsonMessages.GameListMessage;
 
@@ -94,8 +95,13 @@ public class GameListActivity extends ActionBarActivity implements IDialogListen
 						Intent i=new Intent(this, TresEnRayaActivity.class);
 						startActivity(i);
 					} else {
+                        if(store.getIdGame() == HundirLaFlota.HUNDIR_LA_FLOTA){
+                            Intent i=new Intent(this, HundirLaFlotaActivity.class);
+                            startActivity(i);
+                        }else{
 						Toast.makeText(this, "That game is not implemented", Toast.LENGTH_LONG).show();
-					}
+					    }
+                    }
 				} else {
 					ErrorMessage em=(ErrorMessage) jso;
 					Toast.makeText(this, em.getText(), Toast.LENGTH_LONG).show();

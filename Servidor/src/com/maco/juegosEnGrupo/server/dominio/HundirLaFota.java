@@ -19,24 +19,19 @@ import edu.uclm.esi.common.server.sockets.Notifier;
 public class HundirLaFota extends Match{
 	
 	public static int HUNDIR_LA_FLOTA = 2;
-	public static char X='X', O='O', WHITE = ' ';
+	public static char X='X', O='O', WHITE = ' ', T='T';
 	private ArrayList<char[][]> squares;
-	private ArrayList<char[][]> boats;
 	private User userWithTurn;
 	
 	public HundirLaFota(Game game) {
 		super(game);
-		squares.add(new char[10][10]);
-		squares.add(new char[10][10]);
-		boats.add(new char[10][10]);
-		boats.add(new char[10][10]);
-		for (int row=0; row<10; row++)
-			for (int col=0; col<10; col++)
+		squares.add(new char[5][5]);
+		squares.add(new char[5][5]);
+		for (int row=0; row<5; row++)
+			for (int col=0; col<5; col++)
 			{
 				squares.get(0)[row][col]=WHITE;
 				squares.get(1)[row][col]=WHITE;
-				boats.get(0)[row][col]=O;
-				boats.get(1)[row][col]=O;
 			}
 	}
 
@@ -124,11 +119,10 @@ public class HundirLaFota extends Match{
 			throws JSONException, IOException {
 		if (result==null) {
 			if (this.userWithTurn.equals(this.players.get(0))) {
-				//Si es el primer jugador se compara con el square del jugador uno
-				this.squares.get(0)[row][col]=X;
+				ejecutarAtaque(0, row, col);
 				this.userWithTurn=this.players.get(1);
 			} else {
-				this.squares.get(1)[row][col]=O;
+				ejecutarAtaque(1, row, col);
 				this.userWithTurn=this.players.get(0);
 			}
 			result=new HundirLaFlotaBoardMessage(this.toString());
@@ -140,7 +134,7 @@ public class HundirLaFota extends Match{
 	protected void addBoat(int player,int[] row, int[] col){
 		if(validate(row, col, player)){
 			for (int i = 0; i < col.length; i++) {
-				boats.get(player)[row[i]][col[i]] = X;
+				squares.get(player)[row[i]][col[i]] = X;
 			}
 		}
 
@@ -195,11 +189,18 @@ public class HundirLaFota extends Match{
 	
 	private boolean validateNoRepeat(int[] row, int[] col,int player){
 		for (int i = 0; i < col.length; i++) {
-			if(boats.get(player)[row[i]][col[i]] == X){
+			if(squares.get(player)[row[i]][col[i]] == X){
 				return false;
 			}
 		}
 		return true;
+	}
+	
+	private void ejecutarAtaque(int player,int row, int col){
+		if(squares.get(player)[row][col] == WHITE)
+			squares.get(player)[row][col] = 0;
+		else if(squares.get(player)[row][col] == X)
+			squares.get(player)[row][col] = T;
 	}
 
 }
