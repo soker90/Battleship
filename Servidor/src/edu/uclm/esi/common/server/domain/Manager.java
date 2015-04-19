@@ -102,4 +102,6 @@ public class Manager {
 	public Game findGameById(int id) {
 		return this.games.get(id);
 	}
+	
+	
 }

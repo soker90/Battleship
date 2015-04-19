@@ -1,6 +1,9 @@
 package com.maco.juegosEnGrupo.server.dominio;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +17,7 @@ import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaWaitingMessage;
 import edu.uclm.esi.common.jsonMessages.ErrorMessage;
 import edu.uclm.esi.common.jsonMessages.JSONMessage;
 import edu.uclm.esi.common.server.domain.User;
+import edu.uclm.esi.common.server.persistence.Broker;
 import edu.uclm.esi.common.server.sockets.Notifier;
 
 public class HundirLaFota extends Match{
@@ -25,6 +29,7 @@ public class HundirLaFota extends Match{
 	
 	public HundirLaFota(Game game) {
 		super(game);
+		squares = new ArrayList<char[][]>();
 		squares.add(new char[5][5]);
 		squares.add(new char[5][5]);
 		for (int row=0; row<5; row++)
@@ -200,7 +205,34 @@ public class HundirLaFota extends Match{
 		if(squares.get(player)[row][col] == WHITE)
 			squares.get(player)[row][col] = 0;
 		else if(squares.get(player)[row][col] == X)
+		{
 			squares.get(player)[row][col] = T;
+			int cont = 0;
+			for(int i = 0;i <row;i++){
+				for(int j = 0; i<row;i++)
+				{
+					if(squares.get(player)[i][j] == T)
+						cont++;
+				}
+				
+			}
+			if(cont == 6){
+				try{
+					Connection bd=Broker.get().getDBPrivilegiada();
+					String sql="Select max(id) from ranking";
+					PreparedStatement ps=bd.prepareStatement(sql);
+					ResultSet r=ps.executeQuery();
+					r.next();
+					int max = r.getInt(1);
+					sql = "insert into ranking values("+(max+1)+","+userWithTurn.getId()+","+this.game.getId()+")";
+					ps = bd.prepareStatement(sql);
+					ps.executeQuery();
+					
+				}catch(Exception e){
+					
+				}
+			}
+		}
 	}
 
 }
