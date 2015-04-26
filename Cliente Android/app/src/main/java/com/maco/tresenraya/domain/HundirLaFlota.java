@@ -29,7 +29,7 @@ public class HundirLaFlota {
 
 	public HundirLaFlota(HundirLaFlotaActivity ctx) {
 		this.ctx=ctx;
-		squares=new char[10][10];
+		squares=new char[5][5];
 	}
 	
 	public void put(HundirLaFlotaMovement mov) {
@@ -56,8 +56,8 @@ public class HundirLaFlota {
 	
 	public String toString() {
 		String r="";
-		for (int row=0; row<10; row++)
-			for (int col=0; col<10; col++)
+		for (int row=0; row<5; row++)
+			for (int col=0; col<5; col++)
 				r+=this.squares[row][col];
 		return r;
 	}
@@ -65,8 +65,8 @@ public class HundirLaFlota {
 	public void load(HundirLaFlotaBoardMessage board) throws JSONException {
 		String squares=board.getSquares();
 		int cont=0;
-		for (int row=0; row<10; row++)
-			for (int col=0; col<10; col++)
+		for (int row=0; row<5; row++)
+			for (int col=0; col<5; col++)
 				this.squares[row][col]=squares.charAt(cont++);
 		if (board.getPlayer2()!=null) {
 			if (Store.get().getUser().getEmail().equals(board.getPlayer1()))

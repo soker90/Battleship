@@ -43,6 +43,10 @@
             android:name=".TresEnRayaActivity"
             android:label="@string/title_activity_tres_en_raya" >
         </activity>
+        <activity
+            android:name=".HundirLaFlotaActivity"
+            android:label="HundirLaFlotaActivity" >
+        </activity>
     </application>
 
 </manifest>

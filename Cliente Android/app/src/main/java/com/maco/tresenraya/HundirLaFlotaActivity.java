@@ -36,16 +36,16 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Store.get().setCurrentContext(this);
-		setContentView(R.layout.activity_tres_en_raya);
+		setContentView(R.layout.hundir_la_flota_activity);
 
 		this.tvPlayer=(TextView) this.findViewById(R.id.textViewTresEnRayaPlayer);
 		this.tvMessage=(TextView) this.findViewById(R.id.textViewMessage);
 		this.tvOpponent=(TextView) this.findViewById(R.id.textViewOpponent);
-		this.btns=new Button[9];
+		this.btns=new Button[25];
 		int cont=0;
-		for (int row=0; row<3; row++) {
-			for (int col=0; col<3; col++) {
-				int resId = this.getResources().getIdentifier("button"+cont, "id", "com.maco.tresenraya");
+		for (int row=0; row<5; row++) {
+			for (int col=0; col<5; col++) {
+				int resId = this.getResources().getIdentifier("c"+cont, "id", "com.maco.tresenraya");
 				this.btns[cont]=(Button) findViewById(resId);
 				JSONObject tag=new JSONObject();
 				try {
@@ -104,8 +104,8 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 			this.match=new HundirLaFlota(this);
 		this.match.load(board);
 		int cont=0;
-		for (int row=0; row<10; row++) {
-			for (int col=0; col<10; col++) {
+		for (int row=0; row<5; row++) {
+			for (int col=0; col<5; col++) {
 				int resId=this.getResources().getIdentifier("button"+cont, "id", "com.maco.tresenraya");
 				this.btns[cont]=(Button) findViewById(resId);
 				this.btns[cont].setText(match.get(row, col));
