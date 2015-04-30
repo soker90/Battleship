@@ -9,10 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.plus.PlusClient;
 import com.maco.tresenraya.GameListActivity;
 import com.maco.tresenraya.R;
 
@@ -21,9 +18,8 @@ import edu.uclm.esi.common.androidClient.domain.User;
 import edu.uclm.esi.common.androidClient.sockets.SocketListener;
 
 
-public class MainMenu extends ActionBarActivity implements ConnectionCallbacks, OnConnectionFailedListener, OnClickListener {
+public class MainMenu extends ActionBarActivity implements OnClickListener {
 
-    private PlusClient plusClient;
 	private ConnectionResult connectionResult;
 	private SignInButton signinButton;
 
@@ -54,24 +50,21 @@ public class MainMenu extends ActionBarActivity implements ConnectionCallbacks, 
     	startActivity(i);
     }
 
-	@Override
+
 	public void onConnectionFailed(ConnectionResult result) {
 		if (result.hasResolution()) {
             try {
                 result.startResolutionForResult(this, 9000);
             } catch (SendIntentException e) {
-                plusClient.connect();
+
             }
         }
         this.connectionResult = result;
 	}
 
-	@Override
+
 	public void onConnected(Bundle arg0) {
 		try {
-			String accountName = plusClient.getAccountName();
-			User user=User.identifyWithGoogle(accountName);
-			Toast.makeText(this, "Welcome, " + user.getEmail(), Toast.LENGTH_LONG).show();
 			Intent i=new Intent(this, GameListActivity.class);
 			startActivity(i);
 		} catch (Exception e) {
@@ -80,7 +73,7 @@ public class MainMenu extends ActionBarActivity implements ConnectionCallbacks, 
 		}
 	}
 
-	@Override
+
 	public void onDisconnected() {
 		Toast.makeText(this, "Unconnected.", Toast.LENGTH_LONG).show();
 	}
