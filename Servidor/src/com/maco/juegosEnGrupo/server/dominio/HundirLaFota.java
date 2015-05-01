@@ -41,6 +41,17 @@ public class HundirLaFota extends Match{
 				squares.get(0)[row][col]=WHITE;
 				squares.get(1)[row][col]=WHITE;
 			}
+		
+		//Testeo, quitar luego
+		squares.get(0)[0][0] = X;
+		squares.get(0)[0][1] = X;
+		squares.get(0)[2][0] = X;
+		squares.get(0)[2][1] = X;
+		squares.get(1)[0][0] = X;
+		squares.get(1)[0][1] = X;
+		squares.get(1)[2][0] = X;
+		squares.get(1)[2][1] = X;
+		////////
 		cont = new int[2];
 		cont[0] = 0;
 		cont[1] = 0;
