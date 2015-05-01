@@ -26,6 +26,7 @@ public class HundirLaFota extends Match{
 	public static char X='X', O='O', WHITE = ' ', T='T';
 	private ArrayList<char[][]> squares;
 	private User userWithTurn;
+	private int[] cont;
 	
 	public HundirLaFota(Game game) {
 		super(game);
@@ -38,6 +39,9 @@ public class HundirLaFota extends Match{
 				squares.get(0)[row][col]=WHITE;
 				squares.get(1)[row][col]=WHITE;
 			}
+		cont = new int[2];
+		cont[0] = 0;
+		cont[1] = 0;
 	}
 
 	@Override
@@ -203,20 +207,19 @@ public class HundirLaFota extends Match{
 	
 	private void ejecutarAtaque(int player,int row, int col){
 		if(squares.get(player)[row][col] == WHITE)
-			squares.get(player)[row][col] = 0;
+			squares.get(player)[row][col] = O;
 		else if(squares.get(player)[row][col] == X)
 		{
 			squares.get(player)[row][col] = T;
-			int cont = 0;
 			for(int i = 0;i <row;i++){
 				for(int j = 0; i<row;i++)
 				{
 					if(squares.get(player)[i][j] == T)
-						cont++;
+						cont[player]++;
 				}
 				
 			}
-			if(cont == 6){
+			if(cont[player] == 6){
 				try{
 					Connection bd=Broker.get().getDBPrivilegiada();
 					String sql="Select max(id) from ranking";

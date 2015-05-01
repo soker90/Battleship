@@ -1,9 +1,9 @@
 package edu.uclm.esi.common.androidClient.http;
 
-import java.util.concurrent.ExecutionException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 import edu.uclm.esi.common.jsonMessages.JSONMessage;
 
@@ -15,7 +15,7 @@ public class Proxy {
 
 	private Proxy() {
 
-		this.urlServer = "192.168.1.165:8080";
+		this.urlServer = "192.168.1.135:8080";
 
 
 
