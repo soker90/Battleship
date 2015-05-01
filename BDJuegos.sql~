@@ -31,14 +31,6 @@ CREATE TABLE `Game` (
   `playersMax` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF EXISTS `juegos` (
-  `idSquares` INT NOT NULL,
-  `idMath` INT NULL,
-  `col` INT NULL,
-  `row` INT NULL,
-  `idUser` INT NULL,
-  PRIMARY KEY (`idSquares`));
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

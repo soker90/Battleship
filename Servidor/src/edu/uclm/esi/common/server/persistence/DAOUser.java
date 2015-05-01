@@ -100,7 +100,7 @@ public class DAOUser {
 		ps = bd.prepareStatement(sql);
 		ps.executeQuery();
 	}
-	public static void insertMovemment(Connection bd, String user, String math,char row, char col) throws SQLException {
+	public static void insertMovemment(int player, int math,int row, int col) throws SQLException {
 		
 	}
 }

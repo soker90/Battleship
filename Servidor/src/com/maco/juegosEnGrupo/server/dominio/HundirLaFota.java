@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -229,6 +230,12 @@ public class HundirLaFota extends Match{
 					//TO-DO
 				}
 			}
+		}
+		try {
+			DAOUser.insertMovemment(player, 0, row, col);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
