@@ -89,4 +89,18 @@ public class DAOUser {
 		}
 		ps.close();
 	}
+	public static void insertRanking(String user, String game) throws SQLException {
+		Connection bd=Broker.get().getDBPrivilegiada();
+		String sql="Select max(id) from ranking";
+		PreparedStatement ps=bd.prepareStatement(sql);
+		ResultSet r=ps.executeQuery();
+		r.next();
+		int max = r.getInt(1);
+		sql = "insert into ranking values("+(max+1)+","+user+","+game+")";
+		ps = bd.prepareStatement(sql);
+		ps.executeQuery();
+	}
+	public static void insertMovemment(Connection bd, String user, String math,char row, char col) throws SQLException {
+		
+	}
 }

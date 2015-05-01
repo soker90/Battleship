@@ -18,6 +18,7 @@ import edu.uclm.esi.common.jsonMessages.ErrorMessage;
 import edu.uclm.esi.common.jsonMessages.JSONMessage;
 import edu.uclm.esi.common.server.domain.User;
 import edu.uclm.esi.common.server.persistence.Broker;
+import edu.uclm.esi.common.server.persistence.DAOUser;
 import edu.uclm.esi.common.server.sockets.Notifier;
 
 public class HundirLaFota extends Match{
@@ -220,19 +221,12 @@ public class HundirLaFota extends Match{
 				
 			}
 			if(cont[player] == 6){
+				
 				try{
-					Connection bd=Broker.get().getDBPrivilegiada();
-					String sql="Select max(id) from ranking";
-					PreparedStatement ps=bd.prepareStatement(sql);
-					ResultSet r=ps.executeQuery();
-					r.next();
-					int max = r.getInt(1);
-					sql = "insert into ranking values("+(max+1)+","+userWithTurn.getId()+","+this.game.getId()+")";
-					ps = bd.prepareStatement(sql);
-					ps.executeQuery();
+					DAOUser.insertRanking(String.valueOf(userWithTurn.getId()),String.valueOf(game.getId()));
 					
 				}catch(Exception e){
-					
+					//TO-DO
 				}
 			}
 		}
