@@ -17,6 +17,7 @@ import com.maco.tresenraya.jsonMessages.GameListMessage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import edu.uclm.esi.common.androidClient.activities.PartidasActivity;
 import edu.uclm.esi.common.androidClient.dialogs.Dialogs;
 import edu.uclm.esi.common.androidClient.dialogs.IDialogListener;
 import edu.uclm.esi.common.androidClient.domain.Store;
@@ -96,7 +97,7 @@ public class GameListActivity extends ActionBarActivity implements IDialogListen
 						startActivity(i);
 					} else {
 						if(store.getIdGame()== HundirLaFlota.HUNDIR_LA_FLOTA){
-							Intent i = new Intent(this, HundirLaFlotaActivity.class);
+							Intent i = new Intent(this, PartidasActivity.class);
 							startActivity(i);
 						} else {
 							Toast.makeText(this, "That game is not implemented", Toast.LENGTH_LONG).show();

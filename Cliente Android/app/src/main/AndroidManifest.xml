@@ -47,6 +47,10 @@
             android:name=".HundirLaFlotaActivity"
             android:label="@string/title_activity_hundir_la_flota" >
         </activity>
+        <activity
+            android:name="edu.uclm.esi.common.androidClient.activities.PartidasActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
 </manifest>
