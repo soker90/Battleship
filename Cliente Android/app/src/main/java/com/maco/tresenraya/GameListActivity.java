@@ -1,8 +1,5 @@
 package com.maco.tresenraya;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +13,9 @@ import android.widget.Toast;
 import com.maco.tresenraya.domain.HundirLaFlota;
 import com.maco.tresenraya.domain.TresEnRaya;
 import com.maco.tresenraya.jsonMessages.GameListMessage;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import edu.uclm.esi.common.androidClient.dialogs.Dialogs;
 import edu.uclm.esi.common.androidClient.dialogs.IDialogListener;
@@ -37,7 +37,7 @@ public class GameListActivity extends ActionBarActivity implements IDialogListen
 		Store.get().setCurrentContext(this);
 		setContentView(R.layout.activity_game_list);
 		this.gameList=(LinearLayout) this.findViewById(R.id.LinearLayoutGameList);
-		
+
 		Proxy proxy=Proxy.get();
 		try {
 			JSONMessage jsm=proxy.postJSONOrderWithResponse("GameList.action");
@@ -59,7 +59,7 @@ public class GameListActivity extends ActionBarActivity implements IDialogListen
 					LinearLayout ll=new LinearLayout(this);
 					ll.addView(btnGame);
 					this.gameList.addView(ll);
-				}	
+				}
 			} else {
 				ErrorMessage erm=(ErrorMessage) jsm;
 				throw new Exception(erm.getText());
@@ -82,7 +82,7 @@ public class GameListActivity extends ActionBarActivity implements IDialogListen
 			try {
 				Store store=Store.get();
 				User user=store.getUser();
-				
+
 				JSONParameter jspIdGame=new JSONParameter("idGame", btnSelectedGameId.getTag().toString());
 				JSONParameter jspIdUSer=new JSONParameter("idUser", ""+ user.getId());
 
@@ -95,13 +95,13 @@ public class GameListActivity extends ActionBarActivity implements IDialogListen
 						Intent i=new Intent(this, TresEnRayaActivity.class);
 						startActivity(i);
 					} else {
-                        if(store.getIdGame() == HundirLaFlota.HUNDIR_LA_FLOTA){
-                            Intent i=new Intent(this, HundirLaFlotaActivity.class);
-                            startActivity(i);
-                        }else{
-						Toast.makeText(this, "That game is not implemented", Toast.LENGTH_LONG).show();
-					    }
-                    }
+						if(store.getIdGame()== HundirLaFlota.HUNDIR_LA_FLOTA){
+							Intent i = new Intent(this, HundirLaFlotaActivity.class);
+							startActivity(i);
+						} else {
+							Toast.makeText(this, "That game is not implemented", Toast.LENGTH_LONG).show();
+						}
+					}
 				} else {
 					ErrorMessage em=(ErrorMessage) jso;
 					Toast.makeText(this, em.getText(), Toast.LENGTH_LONG).show();

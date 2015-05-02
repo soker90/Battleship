@@ -45,7 +45,7 @@
         </activity>
         <activity
             android:name=".HundirLaFlotaActivity"
-            android:label="HundirLaFlotaActivity" >
+            android:label="@string/title_activity_hundir_la_flota" >
         </activity>
     </application>
 

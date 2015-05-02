@@ -14,7 +14,6 @@ import com.maco.tresenraya.GameListActivity;
 import com.maco.tresenraya.R;
 
 import edu.uclm.esi.common.androidClient.domain.Store;
-import edu.uclm.esi.common.androidClient.domain.User;
 import edu.uclm.esi.common.androidClient.sockets.SocketListener;
 
 
@@ -44,7 +43,7 @@ public class MainMenu extends ActionBarActivity implements OnClickListener {
     	Intent i=new Intent(this, LoginActivity.class);
     	startActivity(i);
     }
-    
+
     public void createAccount(View view) {
     	Intent i=new Intent(this, CreateAccountActivity.class);
     	startActivity(i);
@@ -72,7 +71,6 @@ public class MainMenu extends ActionBarActivity implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void onDisconnected() {
 		Toast.makeText(this, "Unconnected.", Toast.LENGTH_LONG).show();

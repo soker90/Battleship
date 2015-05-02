@@ -31,12 +31,12 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 	private TextView tvMessage;
 	private TextView tvOpponent;
 	private Button[] btns;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Store.get().setCurrentContext(this);
-		setContentView(R.layout.hundir_la_flota_activity);
+		setContentView(R.layout.activity_hundir_la_flota);
 
 		this.tvPlayer=(TextView) this.findViewById(R.id.textViewTresEnRayaPlayer);
 		this.tvMessage=(TextView) this.findViewById(R.id.textViewMessage);
@@ -54,7 +54,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 				} catch (JSONException e) {}
 				this.btns[cont].setTag(tag);
 				this.btns[cont].setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						if (match.getOpponent()==null) {
@@ -63,7 +63,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 							Dialogs.showOneButtonDialog(HundirLaFlotaActivity.this, "Attention", "It's not your turn", "OK");
 						} else {
 							JSONObject jso=(JSONObject) v.getTag();
-                            HundirLaFlotaMovement mov;
+							HundirLaFlotaMovement mov;
 							try {
 								mov = new HundirLaFlotaMovement(jso.getInt("row"), jso.getInt("col"));
 								match.put(mov);
@@ -74,7 +74,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 				cont++;
 			}
 		}
-		
+
 		this.match=new HundirLaFlota(this);
 		loadMatch();
 	}
@@ -99,7 +99,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 	}
 
 	public void loadBoard(JSONMessage jsm) throws JSONException {
-        HundirLaFlotaBoardMessage board=(HundirLaFlotaBoardMessage) jsm;
+		HundirLaFlotaBoardMessage board=(HundirLaFlotaBoardMessage) jsm;
 		if (this.match==null)
 			this.match=new HundirLaFlota(this);
 		this.match.load(board);

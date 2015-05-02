@@ -9,6 +9,6 @@
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_tres_en_raya">TresEnRayaActivity</string>
-    <string name="title_activity_hundir_la_flota">hundir_la_flota</string>
+    <string name="title_activity_hundir_la_flota">HundirLaFlotaActivity</string>
 
 </resources>
