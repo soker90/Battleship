@@ -19,14 +19,16 @@ public class HundirLaFlota {
 	public static int HUNDIR_LA_FLOTA = 2;
 	public static char X='X', O='O', WHITE = ' ', T = 'T';
 
-	private char[][] squares;
+	private char[][] squares1;
+    private char[][] squares2;
 	private HundirLaFlotaActivity ctx;
 	private String opponent;
 	private String userWithTurn;
 
 	public HundirLaFlota(HundirLaFlotaActivity ctx) {
 		this.ctx=ctx;
-		squares=new char[5][5];
+		squares1=new char[5][5];
+        squares2=new char[5][5];
 	}
 
 	public void put(HundirLaFlotaMovement mov) {
@@ -47,25 +49,44 @@ public class HundirLaFlota {
 		}
 	}
 
-	public String get(int row, int col) {
-		return "" + squares[row][col];
+	public String get1(int row, int col) {
+		return "" + squares1[row][col];
 	}
 
-	public String toString() {
+    public String get2(int row, int col) {
+        return "" + squares2[row][col];
+    }
+
+	public String toString1() {
 		String r="";
 		for (int row=0; row<5; row++)
 			for (int col=0; col<5; col++)
-				r+=this.squares[row][col];
+				r+=this.squares1[row][col];
 		return r;
 	}
 
+    public String toString2() {
+        String r="";
+        for (int row=0; row<5; row++)
+            for (int col=0; col<5; col++)
+                r+=this.squares2[row][col];
+        return r;
+    }
+
 	public void load(HundirLaFlotaBoardMessage board) throws JSONException {
-		String squares=board.getSquares();
+		String squares1=board.getSquares1();
+        String squares2=board.getSquares2();
+
 		int cont=0;
 		for (int row=0; row<5; row++)
-			for (int col=0; col<5; col++)
-				this.squares[row][col]=squares.charAt(cont++);
+			for (int col=0; col<5; col++) {
+                this.squares1[row][col] = squares1.charAt(cont++);
+            }
 		if (board.getPlayer2()!=null) {
+            cont=0;
+            for(int row=0;row<5; row++)
+                for(int col=0;col<5;col++)
+                    this.squares2[row][col] = squares2.charAt(cont++);
 			if (Store.get().getUser().getEmail().equals(board.getPlayer1()))
 				this.opponent=board.getPlayer2();
 			else

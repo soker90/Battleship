@@ -10,8 +10,10 @@ import edu.uclm.esi.common.jsonMessages.JSONable;
 
 public class HundirLaFlotaBoardMessage extends JSONMessage {
 	@JSONable
-	private String squares;
-	@JSONable
+	private String squares1;
+    @JSONable
+    private String squares2;
+    @JSONable
 	private String player1;
 	@JSONable
 	private String player2;
@@ -21,9 +23,10 @@ public class HundirLaFlotaBoardMessage extends JSONMessage {
 	public HundirLaFlotaBoardMessage(String board) throws JSONException {
 		super(false);
 		StringTokenizer st=new StringTokenizer(board, "#");
-		this.squares=st.nextToken();
+		this.squares1=st.nextToken();
 		this.player1=st.nextToken();
 		if (st.hasMoreTokens()) {
+            this.squares2=st.nextToken();
 			this.player2=st.nextToken();
 			userWithTurn=st.nextToken();
 		}
@@ -31,17 +34,22 @@ public class HundirLaFlotaBoardMessage extends JSONMessage {
 
 	public HundirLaFlotaBoardMessage(JSONObject jso) throws JSONException {
 		super(false);
-		this.squares=jso.getString("squares");
+		this.squares1=jso.getString("squares1");
 		this.player1=jso.getString("player1");
 		if (jso.optString("player2").length()>0) {
+            this.squares2=jso.getString("squares2");
 			this.player2=jso.getString("player2");
 			this.userWithTurn=jso.getString("userWithTurn");
 		}
 	}
 
-	public String getSquares() {
-		return squares;
+	public String getSquares1() {
+		return squares1;
 	}
+
+    public String getSquares2() {
+        return squares2;
+    }
 	
 	public String getPlayer1() {
 		return player1;
