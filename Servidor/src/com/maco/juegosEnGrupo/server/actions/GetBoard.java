@@ -2,6 +2,7 @@ package com.maco.juegosEnGrupo.server.actions;
 
 import org.json.JSONException;
 
+import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaBoardMessage;
 import com.maco.juegosEnGrupo.server.dominio.Game;
 import com.maco.juegosEnGrupo.server.dominio.Match;
 import com.maco.tresenraya.jsonMessages.TresEnRayaBoardMessage;
@@ -43,11 +44,21 @@ public class GetBoard extends JSONAction {
 			jso=new ErrorMessage(this.exception.getMessage());
 		else {
 			try {
-				jso=new TresEnRayaBoardMessage(match.toString());
+				System.out.println(match.toString());
+				if(idGame == 1){					
+					jso=new TresEnRayaBoardMessage(match.toString());
+				}
+				else{					
+					jso = new HundirLaFlotaBoardMessage(match.toString());
+					
+				}
+					
+					
 			} catch (JSONException e) {
 				jso=new ErrorMessage(this.exception.getMessage());
 			}
 		}
+		System.out.println(jso.toJSONObject().toString());
 		return jso.toJSONObject().toString();
 	}
 

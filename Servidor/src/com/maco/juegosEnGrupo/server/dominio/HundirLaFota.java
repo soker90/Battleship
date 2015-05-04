@@ -103,8 +103,21 @@ public class HundirLaFota extends Match{
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		String r="";
+		for (int row=0; row<5; row++)
+			for (int col=0; col<5; col++){
+				r+=this.squares.get(0)[row][col];
+				
+			}
+		r+="#" + this.players.get(0).getEmail() + "#";
+		if (this.players.size()==2) {
+			for(int row=0;row <5;row++)
+				for(int col=0;col<5;col++)
+					r+=this.squares.get(1)[row][col];
+			r+="#"+this.players.get(1).getEmail() + "#";
+			r+=this.userWithTurn.getEmail();
+		}
+		return r;
 	}
 	@Override
 	protected boolean isTheTurnOf(User user) {
