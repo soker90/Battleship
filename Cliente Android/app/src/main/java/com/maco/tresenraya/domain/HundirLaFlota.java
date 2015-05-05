@@ -50,11 +50,11 @@ public class HundirLaFlota {
 		}
 	}
 
-	public String get1(int row, int col) {
+	private String get1(int row, int col) {
 		return "" + squares1[row][col];
 	}
 
-    public String get2(int row, int col) {
+    private String get2(int row, int col) {
         return "" + squares2[row][col];
     }
 
@@ -65,7 +65,7 @@ public class HundirLaFlota {
 			return get1(row,col);
 	}
 
-	public String toString1() {
+	private String toString1() {
 		String r="";
 		for (int row=0; row<5; row++)
 			for (int col=0; col<5; col++)
@@ -73,13 +73,20 @@ public class HundirLaFlota {
 		return r;
 	}
 
-    public String toString2() {
+    private String toString2() {
         String r="";
         for (int row=0; row<5; row++)
             for (int col=0; col<5; col++)
                 r+=this.squares2[row][col];
         return r;
     }
+
+	public String toString() {
+		if(player == 1)
+			return toString1();
+		else
+			return toString2();
+	}
 
 	public void load(HundirLaFlotaBoardMessage board) throws JSONException {
 		String squares1=board.getSquares1();

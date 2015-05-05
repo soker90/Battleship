@@ -9,7 +9,11 @@ import java.net.UnknownHostException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.maco.tresenraya.HundirLaFlotaActivity;
 import com.maco.tresenraya.TresEnRayaActivity;
+import com.maco.tresenraya.jsonMessages.HundirLaFlotaBoardMessage;
+import com.maco.tresenraya.jsonMessages.HundirLaFlotaMatchReadyMessage;
+import com.maco.tresenraya.jsonMessages.HundirLaFlotaWaitingMessage;
 import com.maco.tresenraya.jsonMessages.TresEnRayaBoardMessage;
 import com.maco.tresenraya.jsonMessages.TresEnRayaMatchReadyMessage;
 import com.maco.tresenraya.jsonMessages.TresEnRayaWaitingMessage;
@@ -98,10 +102,10 @@ public class SocketListener extends Thread {
 			final TresEnRayaBoardMessage board=(TresEnRayaBoardMessage) jsm;
 			final TresEnRayaActivity activity=(TresEnRayaActivity) Store.get().getCurrentContext();
 			activity.runOnUiThread(new Runnable() {
-				
+
 				@Override
 				public void run() {
-					 try {
+					try {
 						activity.loadBoard(board);
 					} catch (JSONException e) {
 						sendToast(e.getMessage());
@@ -114,6 +118,47 @@ public class SocketListener extends Thread {
 			ErrorMessage em=(ErrorMessage) jsm;
 			text=em.getText();
 			sendToast(text);
+			return;
+		}
+
+		if (jsm.getType().equals(HundirLaFlotaWaitingMessage.class.getSimpleName())) {
+			final HundirLaFlotaWaitingMessage wm=(HundirLaFlotaWaitingMessage) jsm;
+			final HundirLaFlotaActivity activity=(HundirLaFlotaActivity) Store.get().getCurrentContext();
+			activity.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					activity.loadMessage(wm);
+				}
+			});
+			return;
+		}
+		if (jsm.getType().equals(HundirLaFlotaMatchReadyMessage.class.getSimpleName())) {
+			final HundirLaFlotaMatchReadyMessage rm=(HundirLaFlotaMatchReadyMessage) jsm;
+			final HundirLaFlotaActivity activity=(HundirLaFlotaActivity) Store.get().getCurrentContext();
+			activity.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					activity.loadReadyMessage(rm);
+				}
+			});
+			return;
+		}
+		if (jsm.getType().equals(HundirLaFlotaBoardMessage.class.getSimpleName())) {
+			final HundirLaFlotaBoardMessage board=(HundirLaFlotaBoardMessage) jsm;
+			final HundirLaFlotaActivity activity=(HundirLaFlotaActivity) Store.get().getCurrentContext();
+			activity.runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						activity.loadBoard(board);
+					} catch (JSONException e) {
+						sendToast(e.getMessage());
+					}
+				}
+			});
 			return;
 		}
 	}
