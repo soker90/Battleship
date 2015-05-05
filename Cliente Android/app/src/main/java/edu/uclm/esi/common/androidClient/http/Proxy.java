@@ -14,7 +14,7 @@ public class Proxy {
 	private String urlServer;
 
 	private Proxy() {
-		this.urlServer = "192.168.1.165:8080";
+		this.urlServer = "172.19.220.73:8080";
 	}
 
 	public static Proxy get() {
@@ -38,7 +38,7 @@ public class Proxy {
 	public JSONMessage postJSONOrderWithResponse(String resource, JSONMessage... jso) throws JSONException, InterruptedException, ExecutionException {
 		PostJSONDataWithResponse pd=new PostJSONDataWithResponse(resource);
 		pd.execute(jso);
-		JSONMessage resp = (JSONMessage)pd.get();
+		JSONMessage resp = pd.get();
 		return resp;
 	}
 

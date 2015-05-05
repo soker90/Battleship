@@ -107,7 +107,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 		int cont=0;
 		for (int row=0; row<5; row++) {
 			for (int col=0; col<5; col++) {
-				int resId=this.getResources().getIdentifier("button"+cont, "id", "com.maco.tresenraya");
+				int resId=this.getResources().getIdentifier("c"+cont, "id", "com.maco.tresenraya");
 				this.btns[cont]=(Button) findViewById(resId);
 				this.btns[cont].setText(match.get1(row, col));
 				cont++;

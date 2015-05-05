@@ -1,11 +1,12 @@
 package edu.uclm.esi.common.jsonMessages;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.maco.tresenraya.jsonMessages.GameListMessage;
+import com.maco.tresenraya.jsonMessages.HundirLaFlotaBoardMessage;
 import com.maco.tresenraya.jsonMessages.TresEnRayaBoardMessage;
 import com.maco.tresenraya.jsonMessages.TresEnRayaWaitingMessage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class JSONMessagesBuilder {
 	public static JSONMessage build(JSONObject jso) throws JSONException {
@@ -27,6 +28,8 @@ public class JSONMessagesBuilder {
 			return new TresEnRayaBoardMessage(jso);
 		if (jso.get("type").equals(TresEnRayaWaitingMessage.class.getSimpleName()))
 			return new TresEnRayaWaitingMessage(jso.getString("text"));
+		if (jso.get("type").equals(HundirLaFlotaBoardMessage.class.getSimpleName()))
+			return new HundirLaFlotaBoardMessage(jso);
 		return null;
 	}
 }
