@@ -251,7 +251,7 @@ public class HundirLaFota extends Match{
 					DAOUser.insertRanking(String.valueOf(userWithTurn.getId()),String.valueOf(game.getId()));
 					
 				}catch(Exception e){
-					//TO-DO
+					e.printStackTrace();
 				}
 			}
 		}

@@ -90,6 +90,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 			if (jsm.getType().equals(HundirLaFlotaBoardMessage.class.getSimpleName())) {
 				loadBoard(jsm);
 			} else {
+				System.out.println(jsm.getType());
 				ErrorMessage em=(ErrorMessage) jsm;
 				Toast.makeText(this, em.getText(), Toast.LENGTH_LONG).show();
 			}

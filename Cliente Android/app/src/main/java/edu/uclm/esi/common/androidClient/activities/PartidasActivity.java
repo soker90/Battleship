@@ -28,7 +28,6 @@ public class PartidasActivity extends ActionBarActivity {
 
 	public void login(View view) {
 
-
 			Intent i=new Intent(this, HundirLaFlotaActivity.class);
 			startActivity(i);
 

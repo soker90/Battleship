@@ -85,7 +85,8 @@ public class TresEnRayaActivity extends ActionBarActivity {
 		JSONParameter jspIdGame=new JSONParameter("idGame", ""+store.getIdGame());
 		JSONParameter jspIdMatch=new JSONParameter("idMatch", ""+store.getIdMatch());
 		try {
-			JSONMessage jsm=Proxy.get().postJSONOrderWithResponse("GetBoard.action", jspIdUser, jspIdGame, jspIdMatch);
+			String s = new String("GetBoard.action");
+			JSONMessage jsm=Proxy.get().postJSONOrderWithResponse(s, jspIdUser, jspIdGame, jspIdMatch);
 			if (jsm.getType().equals(TresEnRayaBoardMessage.class.getSimpleName())) {
 				loadBoard(jsm);
 			} else {
