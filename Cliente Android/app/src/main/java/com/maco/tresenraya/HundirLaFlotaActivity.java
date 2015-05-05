@@ -109,7 +109,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 			for (int col=0; col<5; col++) {
 				int resId=this.getResources().getIdentifier("c"+cont, "id", "com.maco.tresenraya");
 				this.btns[cont]=(Button) findViewById(resId);
-				this.btns[cont].setText(match.get1(row, col));
+				this.btns[cont].setText(match.get(row, col));
 				cont++;
 			}
 		}

@@ -24,6 +24,7 @@ public class HundirLaFlota {
 	private HundirLaFlotaActivity ctx;
 	private String opponent;
 	private String userWithTurn;
+	private int player;
 
 	public HundirLaFlota(HundirLaFlotaActivity ctx) {
 		this.ctx=ctx;
@@ -57,6 +58,13 @@ public class HundirLaFlota {
         return "" + squares2[row][col];
     }
 
+	public String get(int row, int col) {
+		if(player == 1)
+			return get2(row, col);
+		else
+			return get1(row,col);
+	}
+
 	public String toString1() {
 		String r="";
 		for (int row=0; row<5; row++)
@@ -87,10 +95,17 @@ public class HundirLaFlota {
             for(int row=0;row<5; row++)
                 for(int col=0;col<5;col++)
                     this.squares2[row][col] = squares2.charAt(cont++);
-			if (Store.get().getUser().getEmail().equals(board.getPlayer1()))
+			if (Store.get().getUser().getEmail().equals(board.getPlayer1())){
 				this.opponent=board.getPlayer2();
-			else
+				player = 1;
+			}
+
+			else{
 				this.opponent=board.getPlayer1();
+				player = 2;
+			}
+
+
 			this.userWithTurn=board.getUserWithTurn();
 		}
 	}
