@@ -58,7 +58,6 @@ public class GetBoard extends JSONAction {
 				jso=new ErrorMessage(this.exception.getMessage());
 			}
 		}
-		System.out.println(jso.toJSONObject().toString());
 		return jso.toJSONObject().toString();
 	}
 

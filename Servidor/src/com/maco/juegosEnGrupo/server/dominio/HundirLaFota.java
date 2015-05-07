@@ -139,7 +139,7 @@ public class HundirLaFota extends Match{
 			userActivo =1;
 		}
 		
-		if (this.squares.get(userActivo)[row][col]!=WHITE) {
+		if (this.squares.get(userActivo)[row][col]==T | this.squares.get(userActivo)[row][col]==O ) {
 			result=new ErrorMessage("Square busy");
 			Notifier.get().post(user, result);
 		} else if (!this.isTheTurnOf(user)) {
@@ -154,10 +154,10 @@ public class HundirLaFota extends Match{
 			throws JSONException, IOException {
 		if (result==null) {
 			if (this.userWithTurn.equals(this.players.get(0))) {
-				ejecutarAtaque(0, row, col);
+				ejecutarAtaque(1, row, col);
 				this.userWithTurn=this.players.get(1);
 			} else {
-				ejecutarAtaque(1, row, col);
+				ejecutarAtaque(0, row, col);
 				this.userWithTurn=this.players.get(0);
 			}
 			result=new HundirLaFlotaBoardMessage(this.toString());

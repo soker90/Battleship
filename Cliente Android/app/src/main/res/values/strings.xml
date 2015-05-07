@@ -11,5 +11,6 @@
     <string name="title_activity_tres_en_raya">TresEnRayaActivity</string>
     <string name="title_activity_hundir_la_flota">HundirLaFlotaActivity</string>
     <string name="disparar">Disparar</string>
+    <string name="refrescar">Refrescar</string>
 
 </resources>

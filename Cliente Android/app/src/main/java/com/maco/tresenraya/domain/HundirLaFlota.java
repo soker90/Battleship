@@ -83,9 +83,9 @@ public class HundirLaFlota {
 
 	public String toString() {
 		if(player == 1)
-			return toString1();
-		else
 			return toString2();
+		else
+			return toString1();
 	}
 
 	public void load(HundirLaFlotaBoardMessage board) throws JSONException {
