@@ -44,7 +44,6 @@ public class GetBoard extends JSONAction {
 			jso=new ErrorMessage(this.exception.getMessage());
 		else {
 			try {
-				System.out.println(match.toString());
 				if(idGame == 1){					
 					jso=new TresEnRayaBoardMessage(match.toString());
 				}

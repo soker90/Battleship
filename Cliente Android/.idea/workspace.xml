@@ -18,9 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a946e689-a767-42a9-ba75-9621b94467e9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/domain/HundirLaFlota.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/domain/HundirLaFlota.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/HundirLaFlotaActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/HundirLaFlotaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/edu/uclm/esi/common/androidClient/http/Proxy.java" afterPath="$PROJECT_DIR$/app/src/main/java/edu/uclm/esi/common/androidClient/http/Proxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Servidor/src/edu/uclm/esi/common/server/persistence/DAOUser.java" afterPath="$PROJECT_DIR$/../Servidor/src/edu/uclm/esi/common/server/persistence/DAOUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Servidor/src/com/maco/juegosEnGrupo/server/actions/GetBoard.java" afterPath="$PROJECT_DIR$/../Servidor/src/com/maco/juegosEnGrupo/server/actions/GetBoard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TresEnRaya1.iws" />
@@ -88,7 +87,7 @@
       <file leaf-file-name="HundirLaFlota.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/domain/HundirLaFlota.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.4038128">
+            <state vertical-scroll-proportion="0.25210086">
               <caret line="71" column="16" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
               <folding />
             </state>
@@ -1519,7 +1518,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="36ac0990" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="TA8830Q75R" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_S_API_19" />
     <property name="FullScreen" value="false" />
   </component>
@@ -1736,7 +1735,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2127,13 +2126,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/uclm/esi/common/androidClient/sockets/SocketListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8440208">
-          <caret line="183" column="0" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///opt/Android/platforms/android-21/android.jar!/android/widget/Toast.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.4673913">
@@ -2159,16 +2151,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/HundirLaFlotaActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/uclm/esi/common/androidClient/http/Proxy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2180,9 +2162,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/edu/uclm/esi/common/androidClient/sockets/SocketListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8739495">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/HundirLaFlotaActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/maco/tresenraya/domain/HundirLaFlota.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4038128">
+        <state vertical-scroll-proportion="0.25210086">
           <caret line="71" column="16" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
           <folding />
         </state>

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +30,7 @@ public class HundirLaFota extends Match{
 	private ArrayList<char[][]> squares;
 	private User userWithTurn;
 	private int[] cont;
+	private final int CABOATS = 4;
 	
 	public HundirLaFota(Game game) {
 		super(game);
@@ -157,6 +159,7 @@ public class HundirLaFota extends Match{
 				ejecutarAtaque(0, row, col);
 				this.userWithTurn=this.players.get(0);
 			}
+			
 			result=new HundirLaFlotaBoardMessage(this.toString());
 			Notifier.get().post(this.players, result);
 		}
@@ -234,15 +237,11 @@ public class HundirLaFota extends Match{
 		else if(squares.get(player)[row][col] == X)
 		{
 			squares.get(player)[row][col] = T;
-			for(int i = 0;i <row;i++){
-				for(int j = 0; i<row;i++)
-				{
-					if(squares.get(player)[i][j] == T)
-						cont[player]++;
-				}
+			cont[player]++;
 				
-			}
-			if(cont[player] == 6){
+		}
+			System.out.println(cont[player]);
+			if(cont[player] == CABOATS){
 				
 				try{
 					DAOUser.insertRanking(String.valueOf(userWithTurn.getId()),String.valueOf(game.getId()));
@@ -251,7 +250,7 @@ public class HundirLaFota extends Match{
 					e.printStackTrace();
 				}
 			}
-		}
+		
 		try {
 			DAOUser.insertMovemment(player, 0, row, col);
 		} catch (SQLException e) {

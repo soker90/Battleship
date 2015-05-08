@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `juegos` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `juegos`;
--- MySQL dump 10.13  Distrib 5.6.13, for osx10.7 (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.43, for debian-linux-gnu (x86_64)
 --
--- Host: alarcosj.esi.uclm.es    Database: juegos
+-- Host: localhost    Database: juegos
 -- ------------------------------------------------------
--- Server version	5.5.28
+-- Server version	5.5.43-0ubuntu0.14.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,14 +31,52 @@ CREATE TABLE `Game` (
   `playersMax` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF EXISTS `juegos` (
-  `idSquares` INT NOT NULL,
-  `idMath` INT NULL,
-  `col` INT NULL,
-  `row` INT NULL,
-  `idUser` INT NULL,
-  PRIMARY KEY (`idSquares`));
+--
+-- Table structure for table `Movimientos`
+--
+
+DROP TABLE IF EXISTS `Movimientos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Movimientos` (
+  `idmov` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idmov`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Squares`
+--
+
+DROP TABLE IF EXISTS `Squares`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Squares` (
+  `idSquares` int(11) NOT NULL AUTO_INCREMENT,
+  `idMath` int(11) DEFAULT NULL,
+  `col` int(11) DEFAULT NULL,
+  `row` int(11) DEFAULT NULL,
+  `idUser` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idSquares`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `User` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `fechaDeAlta` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,28 +96,48 @@ CREATE TABLE `ranking` (
   KEY `RankingGame_idx` (`idGame`),
   CONSTRAINT `RankingGame` FOREIGN KEY (`idGame`) REFERENCES `Game` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `RankingUser` FOREIGN KEY (`idUser`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `User`
+-- Dumping events for database 'juegos'
 --
-
-DROP TABLE IF EXISTS `User`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `User` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
-  `fechaDeAlta` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping routines for database 'juegos'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `insertarRanking` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarRanking`(in pUser varchar(45), in pGame varchar(2),out pExito varchar(40))
+BEGIN
+
+	DECLARE EXIT HANDLER FOR sqlwarning
+	BEGIN
+		ROLLBACK;
+		set pExito='Warning de acceso a la base de datos';
+	END;
+
+	START TRANSACTION;
+
+		
+		Insert into ranking (idUser, idGame) values (pUser, pGame);
+
+		Set pExito='OK';
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `insertarUsuario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -262,4 +320,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-29 12:28:16
+-- Dump completed on 2015-05-09  0:03:02

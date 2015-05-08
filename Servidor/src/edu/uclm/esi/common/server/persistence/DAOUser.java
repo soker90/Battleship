@@ -91,14 +91,23 @@ public class DAOUser {
 	}
 	public static void insertRanking(String user, String game) throws SQLException {
 		Connection bd=Broker.get().getDBPrivilegiada();
-		String sql="Select max(id) from ranking";
-		PreparedStatement ps=bd.prepareStatement(sql);
-		ResultSet r=ps.executeQuery();
-		r.next();
-		int max = r.getInt(1);
-		sql = "insert into ranking values("+(max+1)+","+user+","+game+")";
-		ps = bd.prepareStatement(sql);
-		ps.executeQuery();
+		try {
+			String sql="{call insertarRanking (?, ?, ?)}";
+			CallableStatement cs=bd.prepareCall(sql);
+			cs.setString(1, user);
+			cs.setString(2, game);
+			cs.registerOutParameter(3, java.sql.Types.VARCHAR);
+			cs.executeUpdate();
+			String exito=cs.getString(3);
+			if (exito!=null && !(exito.equals("OK")))
+				throw new SQLException(exito);
+		}
+		catch (SQLException e) {
+			throw e;
+		}
+		finally {
+			bd.close();
+		}
 	}
 	public static void insertMovemment(int player, int math,int row, int col) throws SQLException {
 		
