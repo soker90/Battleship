@@ -77,7 +77,7 @@ public class HundirLaFlota {
         String r="";
         for (int row=0; row<5; row++)
             for (int col=0; col<5; col++)
-                r+=this.squares2[row][col];
+				r+=this.squares2[row][col];
         return r;
     }
 

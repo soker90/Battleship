@@ -139,10 +139,7 @@ public class HundirLaFota extends Match{
 			userActivo =1;
 		}
 		
-		if (this.squares.get(userActivo)[row][col]==T | this.squares.get(userActivo)[row][col]==O ) {
-			result=new ErrorMessage("Square busy");
-			Notifier.get().post(user, result);
-		} else if (!this.isTheTurnOf(user)) {
+		if (!this.isTheTurnOf(user)) {
 			result=new ErrorMessage("It's not your turn");
 			Notifier.get().post(user, result);
 		} 
