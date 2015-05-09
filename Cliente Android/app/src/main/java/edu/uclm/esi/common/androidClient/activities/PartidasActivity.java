@@ -4,16 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.maco.tresenraya.GameListActivity;
-import com.maco.tresenraya.HundirLaFlotaActivity;
 import com.maco.tresenraya.R;
 
 import edu.uclm.esi.common.androidClient.domain.Store;
-import edu.uclm.esi.common.androidClient.domain.User;
 
 public class PartidasActivity extends ActionBarActivity {
 
@@ -28,8 +22,10 @@ public class PartidasActivity extends ActionBarActivity {
 
 	public void login(View view) {
 
-			Intent i=new Intent(this, HundirLaFlotaActivity.class);
-			startActivity(i);
+			//Intent i=new Intent(this, HundirLaFlotaActivity.class);
+			//startActivity(i);
+		Intent i = new Intent(this,ColocalBarcosActivity.class);
+		startActivity(i);
 
 	}
 	

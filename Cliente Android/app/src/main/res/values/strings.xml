@@ -12,5 +12,6 @@
     <string name="title_activity_hundir_la_flota">HundirLaFlotaActivity</string>
     <string name="disparar">Disparar</string>
     <string name="refrescar">Refrescar</string>
+    <string name="title_activity_colocal_barcos">ColocalBarcosActivity</string>
 
 </resources>
