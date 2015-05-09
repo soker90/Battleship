@@ -42,8 +42,12 @@ DROP TABLE IF EXISTS `Movimientos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Movimientos` (
   `idmov` int(11) NOT NULL AUTO_INCREMENT,
+  `idUser` varchar(45) NOT NULL,
+  `idMatch` varchar(45) NOT NULL,
+  `nrow` varchar(2) NOT NULL,
+  `ncol` varchar(2) NOT NULL,
   PRIMARY KEY (`idmov`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,6 +110,37 @@ CREATE TABLE `ranking` (
 --
 -- Dumping routines for database 'juegos'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `insertarMovimiento` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertarMovimiento`(in pUser varchar(45), in pMatch varchar(45),in pRow varchar(2),in pCol varchar(2),out pExito varchar(40))
+BEGIN
+DECLARE EXIT HANDLER FOR sqlwarning
+	BEGIN
+		ROLLBACK;
+		set pExito='Warning de acceso a la base de datos';
+	END;
+
+	START TRANSACTION;
+
+		
+		Insert into Movimientos (idUser, idMatch, nrow, ncol) values (pUser, pMatch,pRow,pCol);
+
+		Set pExito='OK';
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `insertarRanking` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -320,4 +355,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-09  0:03:02
+-- Dump completed on 2015-05-09 14:39:32

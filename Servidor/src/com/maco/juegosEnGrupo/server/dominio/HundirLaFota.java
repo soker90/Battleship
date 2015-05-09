@@ -127,19 +127,12 @@ public class HundirLaFota extends Match{
 	}
 	@Override
 	protected void postMove(User user, JSONObject jsoMovement) throws Exception {
-		int userActivo;
 		if (!jsoMovement.get("type").equals(HundirLaFlotaMovement.class.getSimpleName())) {
 			throw new Exception("Unexpected type of movement");
 		}
 		int row=jsoMovement.getInt("row");
 		int col=jsoMovement.getInt("col");
 		JSONMessage result=null;
-		
-		if (this.userWithTurn.equals(this.players.get(0))) {
-			userActivo = 0;
-		}else{
-			userActivo =1;
-		}
 		
 		if (!this.isTheTurnOf(user)) {
 			result=new ErrorMessage("It's not your turn");
@@ -240,19 +233,17 @@ public class HundirLaFota extends Match{
 			cont[player]++;
 				
 		}
-			System.out.println(cont[player]);
 			if(cont[player] == CABOATS){
-				
 				try{
 					DAOUser.insertRanking(String.valueOf(userWithTurn.getId()),String.valueOf(game.getId()));
-					
 				}catch(Exception e){
 					e.printStackTrace();
 				}
 			}
 		
 		try {
-			DAOUser.insertMovemment(player, 0, row, col);
+			DAOUser.insertMovemment(String.valueOf(player), String.valueOf(this.game.getId())
+					, String.valueOf(row), String.valueOf(col));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

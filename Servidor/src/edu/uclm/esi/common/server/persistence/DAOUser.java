@@ -109,7 +109,26 @@ public class DAOUser {
 			bd.close();
 		}
 	}
-	public static void insertMovemment(int player, int math,int row, int col) throws SQLException {
-		
+	public static void insertMovemment(String player, String match,String row, String col) throws SQLException {
+		Connection bd=Broker.get().getDBPrivilegiada();
+		try {
+			String sql="{call insertarMovimiento (?, ?, ?, ?, ?)}";
+			CallableStatement cs=bd.prepareCall(sql);
+			cs.setString(1, player);
+			cs.setString(2, match);
+			cs.setString(3, row);
+			cs.setString(4, col);
+			cs.registerOutParameter(5, java.sql.Types.VARCHAR);
+			cs.executeUpdate();
+			String exito=cs.getString(5);
+			if (exito!=null && !(exito.equals("OK")))
+				throw new SQLException(exito);
+		}
+		catch (SQLException e) {
+			throw e;
+		}
+		finally {
+			bd.close();
+		}
 	}
 }
