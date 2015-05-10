@@ -32,6 +32,7 @@ public class HundirLaFota extends Match{
 	private int[] cont;
 	private final int CABOATS = 4;
 	private int ganador;
+	private int perdedor;
 	
 	public HundirLaFota(Game game) {
 		super(game);
@@ -45,15 +46,24 @@ public class HundirLaFota extends Match{
 				squares.get(1)[row][col]=WHITE;
 			}
 		ganador = -1;
+		perdedor = -1;
 		//Testeo, quitar luego
 		squares.get(0)[0][0] = X;
 		squares.get(0)[0][1] = X;
 		squares.get(0)[2][0] = X;
 		squares.get(0)[2][1] = X;
+		squares.get(0)[2][2] = X;
+		squares.get(0)[3][0] = X;
+		squares.get(0)[3][1] = X;
+		squares.get(0)[3][2] = X;
 		squares.get(1)[1][0] = X;
 		squares.get(1)[1][1] = X;
+		squares.get(1)[1][2] = X;
 		squares.get(1)[3][0] = X;
 		squares.get(1)[3][1] = X;
+		squares.get(1)[4][0] = X;
+		squares.get(1)[4][1] = X;
+		squares.get(1)[4][2] = X;
 		////////
 		cont = new int[2];
 		cont[0] = 0;
@@ -129,20 +139,22 @@ public class HundirLaFota extends Match{
 	@Override
 	protected void postMove(User user, JSONObject jsoMovement) throws Exception {
 		
-		if (!jsoMovement.get("type").equals(HundirLaFlotaMovement.class.getSimpleName())) {
-			throw new Exception("Unexpected type of movement");
+			if (!jsoMovement.get("type").equals(HundirLaFlotaMovement.class.getSimpleName())) {
+				throw new Exception("Unexpected type of movement");
+			}
+			int row=jsoMovement.getInt("row");
+			int col=jsoMovement.getInt("col");
+			JSONMessage result=null;
+			
+			if (!this.isTheTurnOf(user)) {
+				result=new ErrorMessage("It's not your turn");
+				Notifier.get().post(user, result);
+			} 
+			if(this.ganador == -1){
+				updateBoard(row, col, result);
+			}
+		
 		}
-		int row=jsoMovement.getInt("row");
-		int col=jsoMovement.getInt("col");
-		JSONMessage result=null;
-		
-		if (!this.isTheTurnOf(user)) {
-			result=new ErrorMessage("It's not your turn");
-			Notifier.get().post(user, result);
-		} 
-		updateBoard(row, col, result);
-		
-	}
 	@Override
 	protected void updateBoard(int row, int col, JSONMessage result)
 			throws JSONException, IOException {
@@ -154,7 +166,13 @@ public class HundirLaFota extends Match{
 				ejecutarAtaque(0, row, col);
 				this.userWithTurn=this.players.get(0);
 			}
-			
+			calcularGanador();
+			if(this.ganador != -1){
+				JSONMessage message = new ErrorMessage("¡¡Has ganado!!");
+				Notifier.get().post(this.players.get(ganador), message);
+				message = new ErrorMessage("¡¡Has perdido!!");
+				Notifier.get().post(this.players.get(perdedor), message);
+			} 
 			result=new HundirLaFlotaBoardMessage(this.toString());
 			Notifier.get().post(this.players, result);
 		}
@@ -202,15 +220,17 @@ public class HundirLaFota extends Match{
 					}
 				}
 			}
-			if(cont[0] == 8){
-				this.ganador = 0;
-				return true;
-			}
-			if(cont[1] == 8){
-				this.ganador = 1;
-				return true;
-			}
-			return false;
+				if(cont[0] == 8){
+					this.ganador = 1;
+					this.perdedor = 0;
+					return true;
+				}
+				if(cont[1] == 8){
+					this.ganador = 0;
+					this.perdedor = 1;
+					return true;
+				}
+			
 		}
 		return false;
 	}
