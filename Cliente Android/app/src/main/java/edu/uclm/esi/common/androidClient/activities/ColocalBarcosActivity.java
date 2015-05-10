@@ -35,6 +35,7 @@ public class ColocalBarcosActivity extends ActionBarActivity {
         longitud = new int[]{2, 3, 3};
         this.ncasillas = 0;
         rowTemp = new ArrayList<>();
+        colTemp = new ArrayList<>();
         nbarco = 0;
 
         this.tvPlayer=(TextView) this.findViewById(R.id.textViewTresEnRayaPlayer);
@@ -65,10 +66,9 @@ public class ColocalBarcosActivity extends ActionBarActivity {
                         if (ncasillas < longitud[nbarco]) {
                             try {
                                 JSONObject jso = (JSONObject) v.getTag();
-                                squares[jso.getInt("row")][jso.getInt("col")] = 'X';
                                 ((Button) v).setText("X");
                                 ncasillas++;
-                                tvMessage.setText("Barco de longitud "+longitud[nbarco]);
+                                tvMessage.setText("Barco de longitud " + longitud[nbarco]);
                                 rowTemp.add(String.valueOf(jso.getInt("row")));
                                 colTemp.add(String.valueOf(jso.getInt("col")));
                             } catch (Exception e) {
@@ -88,15 +88,16 @@ public class ColocalBarcosActivity extends ActionBarActivity {
             public void onClick(View view) {
                 String row = "";
                 String col = "";
+                ArrayList<Integer> s = new ArrayList<Integer>();
                 for (Object i : rowTemp.toArray()) {
                     row += i.toString();
                 }
 
-               /* for (Object i : colTemp.toArray()) {
+               for (Object i : colTemp.toArray()) {
                     col += i.toString();
                 }
 
-                //addBoat(row.toCharArray(),col.toCharArray());
+                addBoat(row.toCharArray(),col.toCharArray());
 
                 /*for(char[] i : squares){
                     for(char j : i)
@@ -109,12 +110,23 @@ public class ColocalBarcosActivity extends ActionBarActivity {
 
     protected void addBoat(char[] row, char[] col){
         if(validate(row, col)){
-            for (int i = 0; i < col.length; i++) {
-                squares[row[i]][col[i]] = X;
-            }
+            String rowAux;
+            String colAux;
+            for (int i = 0; i < row.length; i++)
+                for (int j = 0; j < col.length; j++) {
+                    rowAux = "";
+                    rowAux += row[i];
+                    colAux = "";
+                    colAux += col[j];
+                    squares[Integer.parseInt(rowAux)][Integer.parseInt(colAux)] = X;
+                    this.tvMessage=(TextView) this.findViewById(R.id.textViewMessage);
+                    //nbarco++;
+                    //tvMessage.setText("Barco de longitud "+longitud[nbarco]);
+                }
         } else {
-            tvMessage.setText("Barco de longitud "+longitud[0]);
+            tvMessage.setText("Error! Barco de longitud "+longitud[0]);
         }
+        //borrarCasillas();
 
     }
 
@@ -166,11 +178,28 @@ public class ColocalBarcosActivity extends ActionBarActivity {
      *********************************************************************/
 
     private boolean validateNoRepeat(char[] row, char[] col){
-        for (int i = 0; i < col.length; i++) {
-            if(squares[row[i]][col[i]] == X){
-                return false;
+        String rowAux;
+        String colAux;
+        for (int i = 0; i < row.length; i++)
+            for (int j = 0; j < col.length; j++) {
+                rowAux = "";
+                rowAux += row[i];
+                colAux = "";
+                colAux += col[j];
+                if(squares[Integer.parseInt(rowAux)][Integer.parseInt(colAux)] == X){
+                    return false;
+                }
             }
-        }
         return true;
+    }
+
+    private void borrarCasillas(){
+        ncasillas = 0;
+        rowTemp.clear();
+        colTemp.clear();
+
+        for (int i = 0; i < 25;i++)
+            this.btns[i].setText("");
+
     }
 }
