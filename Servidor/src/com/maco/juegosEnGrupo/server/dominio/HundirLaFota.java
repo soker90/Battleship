@@ -31,6 +31,7 @@ public class HundirLaFota extends Match{
 	private User userWithTurn;
 	private int[] cont;
 	private final int CABOATS = 4;
+	private int ganador;
 	
 	public HundirLaFota(Game game) {
 		super(game);
@@ -43,7 +44,7 @@ public class HundirLaFota extends Match{
 				squares.get(0)[row][col]=WHITE;
 				squares.get(1)[row][col]=WHITE;
 			}
-		
+		ganador = -1;
 		//Testeo, quitar luego
 		squares.get(0)[0][0] = X;
 		squares.get(0)[0][1] = X;
@@ -127,6 +128,7 @@ public class HundirLaFota extends Match{
 	}
 	@Override
 	protected void postMove(User user, JSONObject jsoMovement) throws Exception {
+		
 		if (!jsoMovement.get("type").equals(HundirLaFlotaMovement.class.getSimpleName())) {
 			throw new Exception("Unexpected type of movement");
 		}
@@ -185,6 +187,32 @@ public class HundirLaFota extends Match{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean calcularGanador(){
+		if(this.ganador == -1){
+			int cont[] = new int[2];
+			cont[0]=0;
+			cont[1]=0;
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < squares.get(i).length; j++) {
+					for (int j2 = 0; j2 < squares.get(i).length; j2++) {
+						if(squares.get(i)[j][j2] == T)
+							cont[i]++;
+					}
+				}
+			}
+			if(cont[0] == 8){
+				this.ganador = 0;
+				return true;
+			}
+			if(cont[1] == 8){
+				this.ganador = 1;
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 
 }

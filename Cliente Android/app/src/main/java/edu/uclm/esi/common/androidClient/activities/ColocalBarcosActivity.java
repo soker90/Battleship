@@ -1,11 +1,13 @@
 package edu.uclm.esi.common.androidClient.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.maco.tresenraya.HundirLaFlotaActivity;
 import com.maco.tresenraya.R;
 
 import org.json.JSONException;
@@ -22,7 +24,8 @@ public class ColocalBarcosActivity extends ActionBarActivity {
     private int[] longitud;
     private int ncasillas;
     private int nbarco;
-    public static char X='X', O='O', WHITE = ' ';
+    public char X='X', O='O', WHITE = ' ';
+    private int NBARCOS = 3;
     private  Button btnSend;
     ArrayList<String> rowTemp;
     ArrayList<String> colTemp;
@@ -99,34 +102,41 @@ public class ColocalBarcosActivity extends ActionBarActivity {
 
                 addBoat(row.toCharArray(),col.toCharArray());
 
-                /*for(char[] i : squares){
-                    for(char j : i)
-                        System.out.print(j);
-                }*/
             }
         });
 
     }
 
     protected void addBoat(char[] row, char[] col){
-        if(validate(row, col)){
-            String rowAux;
-            String colAux;
-            for (int i = 0; i < row.length; i++)
-                for (int j = 0; j < col.length; j++) {
+        if(nbarco < NBARCOS) {
+            if (validate(row, col)) {
+                String rowAux;
+                String colAux;
+                for (int i = 0; i < row.length; i++) {
                     rowAux = "";
                     rowAux += row[i];
                     colAux = "";
-                    colAux += col[j];
+                    colAux += col[i];
                     squares[Integer.parseInt(rowAux)][Integer.parseInt(colAux)] = X;
-                    this.tvMessage=(TextView) this.findViewById(R.id.textViewMessage);
-                    //nbarco++;
-                    //tvMessage.setText("Barco de longitud "+longitud[nbarco]);
                 }
-        } else {
-            tvMessage.setText("Error! Barco de longitud "+longitud[0]);
+
+                if(nbarco < NBARCOS) {
+                    if (ncasillas == longitud[nbarco])
+                        nbarco++;
+                    if(nbarco < NBARCOS)
+                        tvMessage.setText("Barco de longitud " + longitud[nbarco]);
+                    else {
+                        tvMessage.setText("Se acabó");
+                        Intent i=new Intent(this, HundirLaFlotaActivity.class);
+                        startActivity(i);
+                        //sendBarcos();
+                    }
+                }
+            } else {
+                tvMessage.setText("Error! Barco de longitud " + longitud[nbarco]);
+            }
+            borrarCasillas();
         }
-        //borrarCasillas();
 
     }
 
@@ -168,7 +178,7 @@ public class ColocalBarcosActivity extends ActionBarActivity {
             }
         }
         if(ok)
-            ok = validateNoRepeat(row, col);
+            ok = validateRepeat(row, col);
         return ok;
     }
 
@@ -177,15 +187,14 @@ public class ColocalBarcosActivity extends ActionBarActivity {
      * devuelve true                                                     *
      *********************************************************************/
 
-    private boolean validateNoRepeat(char[] row, char[] col){
+    private boolean validateRepeat(char[] row, char[] col){
         String rowAux;
         String colAux;
-        for (int i = 0; i < row.length; i++)
-            for (int j = 0; j < col.length; j++) {
+        for (int i = 0; i < row.length; i++){
                 rowAux = "";
                 rowAux += row[i];
                 colAux = "";
-                colAux += col[j];
+                colAux += col[i];
                 if(squares[Integer.parseInt(rowAux)][Integer.parseInt(colAux)] == X){
                     return false;
                 }
@@ -195,11 +204,34 @@ public class ColocalBarcosActivity extends ActionBarActivity {
 
     private void borrarCasillas(){
         ncasillas = 0;
-        rowTemp.clear();
-        colTemp.clear();
+        rowTemp = new ArrayList<>();
+        colTemp = new ArrayList<>();
 
         for (int i = 0; i < 25;i++)
             this.btns[i].setText("");
 
     }
+
+    /**************
+    //No funciona
+     **************/
+    /*
+    private void sendBarcos(){
+        Store store=Store.get();
+        JSONParameter jspIdUser=new JSONParameter("idUser", ""+ store.getUser().getId());
+        JSONParameter jspIdGame=new JSONParameter("idGame", ""+store.getIdGame());
+        JSONParameter jspIdMatch=new JSONParameter("idMatch", ""+store.getIdMatch());
+        HundirLaFlotaBarcos boat;
+        boat = new HundirLaFlotaBarcos(squares);
+        JSONParameter jspBoat = new JSONParameter("squares", ""+boat);
+        try {
+            JSONMessage jsm= Proxy.get().postJSONOrderWithResponse("SendBarcos.action", jspIdUser, jspIdGame, jspIdMatch, jspBoat);
+            if (!jsm.getType().equals(OKMessage.class.getSimpleName())) {
+                ErrorMessage em=(ErrorMessage) jsm;
+                tvMessage.setText(em.getText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
 }
