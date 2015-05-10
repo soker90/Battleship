@@ -159,70 +159,7 @@ public class HundirLaFota extends Match{
 		
 	}
 	
-	protected void addBoat(int player,int[] row, int[] col){
-		if(validate(row, col, player)){
-			for (int i = 0; i < col.length; i++) {
-				squares.get(player)[row[i]][col[i]] = X;
-			}
-		}
-
-	}
 	
-	/******************************************************************
-	 * Valida que el barco este bien situado, que se encuentre en una *
-	 * unica columna o unica fila                                     *
-	 ******************************************************************/
-	
-	protected boolean validate(int row[], int[] col,int player){
-		boolean ok = false;
-		//Si esta en la misma fila
-		for (int i = 0; i < row.length-1; i++) {
-			if(row[i] == row[i+1]){
-				if(col[i]+1 == col[i+1])
-					ok = true;
-				else{
-					ok=false;
-					break;
-				}
-			}else{
-				ok = false;
-				break;
-			}
-		}
-		//Si esta en la misma columna
-		if(!ok){
-			for (int i = 0; i < col.length-1; i++) {
-				if(col[i] == col[i+1]){
-					if(row[i] + 1 == row[i+1])
-						ok = true;
-					else{
-						ok = false;
-						break;
-					}
-				} else {
-					ok = false;
-					break;
-				}
-			}
-		}
-		if(ok)
-			ok = validateNoRepeat(row, col, player);
-		return ok;
-	}
-	
-	/*********************************************************************
-	 * En caso de que alguna de las casillas este ocupada por otro barco *
-	 * devuelve true                                                     *
-	 *********************************************************************/
-	
-	private boolean validateNoRepeat(int[] row, int[] col,int player){
-		for (int i = 0; i < col.length; i++) {
-			if(squares.get(player)[row[i]][col[i]] == X){
-				return false;
-			}
-		}
-		return true;
-	}
 	
 	private void ejecutarAtaque(int player,int row, int col){
 		if(squares.get(player)[row][col] == WHITE)
