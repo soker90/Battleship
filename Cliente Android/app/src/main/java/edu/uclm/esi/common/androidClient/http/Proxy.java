@@ -14,7 +14,7 @@ public class Proxy {
 	private String urlServer;
 
 	private Proxy() {
-		this.urlServer = "192.168.1.135:8080";
+		this.urlServer = "172.19.221.143:8080";
 	}
 
 	public static Proxy get() {

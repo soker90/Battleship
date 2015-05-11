@@ -47,24 +47,7 @@ CREATE TABLE `Movimientos` (
   `nrow` varchar(2) NOT NULL,
   `ncol` varchar(2) NOT NULL,
   PRIMARY KEY (`idmov`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `Squares`
---
-
-DROP TABLE IF EXISTS `Squares`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Squares` (
-  `idSquares` int(11) NOT NULL AUTO_INCREMENT,
-  `idMath` int(11) DEFAULT NULL,
-  `col` int(11) DEFAULT NULL,
-  `row` int(11) DEFAULT NULL,
-  `idUser` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idSquares`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +63,7 @@ CREATE TABLE `User` (
   `fechaDeAlta` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +83,7 @@ CREATE TABLE `ranking` (
   KEY `RankingGame_idx` (`idGame`),
   CONSTRAINT `RankingGame` FOREIGN KEY (`idGame`) REFERENCES `Game` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `RankingUser` FOREIGN KEY (`idUser`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,4 +338,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-09 14:39:32
+-- Dump completed on 2015-05-11 20:14:12
