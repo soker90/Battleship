@@ -1,11 +1,11 @@
 package edu.uclm.esi.common.jsonMessages;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Vector;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public abstract class JSONMessage {
 	public static final String USER_ANDROID = "USER_ANDROID";
@@ -21,7 +21,7 @@ public abstract class JSONMessage {
 		return isCommand;
 	}
 
-	public final JSONObject toJSONObject() {
+	public JSONObject toJSONObject() {
 		Vector<Field> ff=getJSONableFields();
 		JSONObject result=new JSONObject();
 		String fn;

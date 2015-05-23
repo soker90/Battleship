@@ -21,7 +21,7 @@ public abstract class JSONMessage {
 		return isCommand;
 	}
 
-	public final JSONObject toJSONObject() {
+	public JSONObject toJSONObject() {
 		Vector<Field> ff=getJSONableFields();
 		JSONObject result=new JSONObject();
 		String fn;
