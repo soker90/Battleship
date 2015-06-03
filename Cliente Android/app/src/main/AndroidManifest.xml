@@ -53,7 +53,7 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="edu.uclm.esi.common.androidClient.activities.ColocalBarcosActivity"
+            android:name="edu.uclm.esi.common.androidClient.activities.ColocarBarcosActivity"
             android:label="@string/title_activity_colocal_barcos" >
         </activity>
     </application>

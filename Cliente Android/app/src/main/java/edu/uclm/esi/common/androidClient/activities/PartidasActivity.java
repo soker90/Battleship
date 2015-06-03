@@ -24,7 +24,7 @@ public class PartidasActivity extends ActionBarActivity {
 
 		//	Intent i=new Intent(this, HundirLaFlotaActivity.class);
 		//	startActivity(i);
-		Intent i = new Intent(this,ColocalBarcosActivity.class);
+		Intent i = new Intent(this,ColocarBarcosActivity.class);
 		startActivity(i);
 
 	}

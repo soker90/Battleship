@@ -9,13 +9,21 @@ import android.widget.TextView;
 
 import com.maco.tresenraya.HundirLaFlotaActivity;
 import com.maco.tresenraya.R;
+import com.maco.tresenraya.jsonMessages.HundirLaFlotaBarcos;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ColocalBarcosActivity extends ActionBarActivity {
+import edu.uclm.esi.common.androidClient.domain.Store;
+import edu.uclm.esi.common.androidClient.http.Proxy;
+import edu.uclm.esi.common.jsonMessages.ErrorMessage;
+import edu.uclm.esi.common.jsonMessages.JSONMessage;
+import edu.uclm.esi.common.jsonMessages.JSONParameter;
+import edu.uclm.esi.common.jsonMessages.OKMessage;
+
+public class ColocarBarcosActivity extends ActionBarActivity {
 
     private TextView tvPlayer;
     private TextView tvMessage;
@@ -129,7 +137,7 @@ public class ColocalBarcosActivity extends ActionBarActivity {
                         tvMessage.setText("Se acabó");
                         Intent i=new Intent(this, HundirLaFlotaActivity.class);
                         startActivity(i);
-                        //sendBarcos();
+                        sendBarcos();
                     }
                 }
             } else {
@@ -215,14 +223,14 @@ public class ColocalBarcosActivity extends ActionBarActivity {
     /**************
     //No funciona
      **************/
-    /*
+
     private void sendBarcos(){
         Store store=Store.get();
         JSONParameter jspIdUser=new JSONParameter("idUser", ""+ store.getUser().getId());
         JSONParameter jspIdGame=new JSONParameter("idGame", ""+store.getIdGame());
         JSONParameter jspIdMatch=new JSONParameter("idMatch", ""+store.getIdMatch());
         HundirLaFlotaBarcos boat;
-        boat = new HundirLaFlotaBarcos(squares);
+        boat = new HundirLaFlotaBarcos(this.squares);
         JSONParameter jspBoat = new JSONParameter("squares", ""+boat);
         try {
             JSONMessage jsm= Proxy.get().postJSONOrderWithResponse("SendBarcos.action", jspIdUser, jspIdGame, jspIdMatch, jspBoat);
@@ -233,5 +241,5 @@ public class ColocalBarcosActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }

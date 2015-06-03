@@ -234,5 +234,43 @@ public class HundirLaFota extends Match{
 		}
 		return false;
 	}
+	/************************************************
+	 * Devuelve el array de char del usuario pasado *
+	 * por parámetro                                *
+	 ************************************************/
+	
+	public char[][] getSquares(int idUser) {
+		if(idUser == this.players.get(0).getId())
+			return this.squares.get(0);
+		else
+			return this.squares.get(1);
+	}
+	
+	public void colocar(User user, JSONObject jsoBarcos) throws Exception {
+		if (!isTheTurnOf(user))
+			throw new Exception("It's not your turn");
+		postColocar(user, jsoBarcos);
+	}
+	
+	private void postColocar (User user, JSONObject jsoBarcos) throws Exception {
+		if (!jsoBarcos.get("type").equals(HundirLaFlotaBoardMessage.class.getSimpleName())) {
+			throw new Exception("Unexpected type of movement");
+		}
+		char[][] square=(char[][])jsoBarcos.get("squares");
+		JSONMessage result=null;
+		
+		if (!this.isTheTurnOf(user)) {
+			result=new ErrorMessage("It's not your turn");
+			Notifier.get().post(user, result);
+		} 
+		if(user == this.players.get(0)){
+			this.squares.remove(0);
+			this.squares.add(0, square);
+		} else {
+			this.squares.remove(1);
+			this.squares.add(1, square);
+				
+		}
+	}
 
 }

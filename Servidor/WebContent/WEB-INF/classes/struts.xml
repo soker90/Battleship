@@ -67,6 +67,10 @@
 			<result name="success" type="json"/>
 			<result name="error" type="json"/>
 		</action>
+		<action name="SendBarcos" class="com.maco.juegosEnGrupo.server.actions.SendBarcos">
+			<result name="success" type="json"/>
+			<result name="error" type="json"/>
+		</action>
 	</package>
 </struts>
 
