@@ -12,6 +12,7 @@ import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaBarcos;
 import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaBoardMessage;
 import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaMovement;
 import com.maco.hundirlaflota.jsonMessages.HundirLaFlotaWaitingMessage;
@@ -33,6 +34,7 @@ public class HundirLaFota extends Match{
 	private final int CABOATS = 4;
 	private int ganador;
 	private int perdedor;
+	private int jugadoreslistos;
 	
 	public HundirLaFota(Game game) {
 		super(game);
@@ -45,8 +47,7 @@ public class HundirLaFota extends Match{
 				squares.get(0)[row][col]=WHITE;
 				squares.get(1)[row][col]=WHITE;
 			}
-		ganador = -1;
-		perdedor = -1;
+		/*
 		//Testeo, quitar luego
 		squares.get(0)[0][0] = X;
 		squares.get(0)[0][1] = X;
@@ -63,16 +64,20 @@ public class HundirLaFota extends Match{
 		squares.get(1)[3][1] = X;
 		squares.get(1)[4][0] = X;
 		squares.get(1)[4][1] = X;
-		squares.get(1)[4][2] = X;
+		squares.get(1)[4][2] = X;*/
 		////////
+		ganador = -1;
+		perdedor = -1;
 		cont = new int[2];
 		cont[0] = 0;
 		cont[1] = 0;
+		jugadoreslistos = 0;
+		
 	}
 
 	@Override
 	protected void postAddUser(User user) {
-		if (this.players.size()==2) {
+		if(this.players.size() == 2){
 			Random dado=new Random();
 			JSONMessage jsTurn=new HundirLaFlotaWaitingMessage("Match ready. You have the turn.");
 			JSONMessage jsNoTurn=new HundirLaFlotaWaitingMessage("Match ready. Wait for the opponent to move.");
@@ -104,19 +109,20 @@ public class HundirLaFota extends Match{
 				e.printStackTrace();
 			}
 		} else {
+	
 			JSONMessage jsm=new HundirLaFlotaWaitingMessage("Waiting for one more player");
 			try {
 				Notifier.get().post(this.players.get(0), jsm);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
 		}
-		
+		}
 	}
 	@Override
 	public String toString() {
 		String r="";
+
 		for (int row=0; row<5; row++)
 			for (int col=0; col<5; col++){
 				r+=this.squares.get(0)[row][col];
@@ -138,7 +144,6 @@ public class HundirLaFota extends Match{
 	}
 	@Override
 	protected void postMove(User user, JSONObject jsoMovement) throws Exception {
-		
 			if (!jsoMovement.get("type").equals(HundirLaFlotaMovement.class.getSimpleName())) {
 				throw new Exception("Unexpected type of movement");
 			}
@@ -154,28 +159,30 @@ public class HundirLaFota extends Match{
 				updateBoard(row, col, result);
 			}
 		
+		
 		}
 	@Override
 	protected void updateBoard(int row, int col, JSONMessage result)
 			throws JSONException, IOException {
-		if (result==null) {
-			if (this.userWithTurn.equals(this.players.get(0))) {
-				ejecutarAtaque(1, row, col);
-				this.userWithTurn=this.players.get(1);
-			} else {
-				ejecutarAtaque(0, row, col);
-				this.userWithTurn=this.players.get(0);
+			if (result==null) {
+				if (this.userWithTurn.equals(this.players.get(0))) {
+					ejecutarAtaque(1, row, col);
+					this.userWithTurn=this.players.get(1);
+				} else {
+					ejecutarAtaque(0, row, col);
+					this.userWithTurn=this.players.get(0);
+				}
+				calcularGanador();
+				if(this.ganador != -1){
+					JSONMessage message = new ErrorMessage("¡¡Has ganado!!");
+					Notifier.get().post(this.players.get(ganador), message);
+					message = new ErrorMessage("¡¡Has perdido!!");
+					Notifier.get().post(this.players.get(perdedor), message);
+				} 
+				result=new HundirLaFlotaBoardMessage(this.toString());
+				Notifier.get().post(this.players, result);
 			}
-			calcularGanador();
-			if(this.ganador != -1){
-				JSONMessage message = new ErrorMessage("¡¡Has ganado!!");
-				Notifier.get().post(this.players.get(ganador), message);
-				message = new ErrorMessage("¡¡Has perdido!!");
-				Notifier.get().post(this.players.get(perdedor), message);
-			} 
-			result=new HundirLaFlotaBoardMessage(this.toString());
-			Notifier.get().post(this.players, result);
-		}
+		
 		
 	}
 	
@@ -236,13 +243,11 @@ public class HundirLaFota extends Match{
 	}
 	
 	public void colocar(User user, JSONObject jsoBarcos) throws Exception {
-		if (!isTheTurnOf(user))
-			throw new Exception("It's not your turn");
 		postColocar(user, jsoBarcos);
 	}
 	
 	private void postColocar (User user, JSONObject jsoBarcos) throws Exception {
-		if (!jsoBarcos.get("type").equals(HundirLaFlotaBoardMessage.class.getSimpleName())) {
+		if (!jsoBarcos.get("type").equals(HundirLaFlotaBarcos.class.getSimpleName())) {
 			throw new Exception("Unexpected type of movement");
 		}
 		char[][] square=(char[][])jsoBarcos.get("squares");
@@ -257,9 +262,14 @@ public class HundirLaFota extends Match{
 			this.squares.add(0, square);
 		} else {
 			this.squares.remove(1);
-			this.squares.add(1, square);
+			this.squares.add(square);
 				
 		}
+		
+
 	}
+	
+	
+		
 
 }
