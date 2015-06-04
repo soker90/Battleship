@@ -11,14 +11,14 @@ import edu.uclm.esi.common.jsonMessages.JSONable;
 
 public class HundirLaFlotaBarcos extends JSONMessage {
 	
-	private char[][] squares;
+	private Object squares;
 
-	public HundirLaFlotaBarcos(char[][] squares) {
+	public HundirLaFlotaBarcos(Object squares) {
 		super(true);
 		this.squares = squares;
 	}
 	
-	public char[][] getSquares() {
+	public Object getSquares() {
 		return squares;
 	}
 	

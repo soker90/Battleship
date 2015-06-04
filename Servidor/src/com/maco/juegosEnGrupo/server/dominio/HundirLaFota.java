@@ -234,17 +234,6 @@ public class HundirLaFota extends Match{
 		}
 		return false;
 	}
-	/************************************************
-	 * Devuelve el array de char del usuario pasado *
-	 * por parámetro                                *
-	 ************************************************/
-	
-	public char[][] getSquares(int idUser) {
-		if(idUser == this.players.get(0).getId())
-			return this.squares.get(0);
-		else
-			return this.squares.get(1);
-	}
 	
 	public void colocar(User user, JSONObject jsoBarcos) throws Exception {
 		if (!isTheTurnOf(user))

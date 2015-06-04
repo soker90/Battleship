@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
+import com.maco.tresenraya.ColocarBarcosActivity;
 import com.maco.tresenraya.R;
 
 import edu.uclm.esi.common.androidClient.domain.Store;

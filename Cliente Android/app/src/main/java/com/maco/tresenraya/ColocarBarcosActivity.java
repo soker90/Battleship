@@ -1,4 +1,4 @@
-package edu.uclm.esi.common.androidClient.activities;
+package com.maco.tresenraya;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.maco.tresenraya.HundirLaFlotaActivity;
-import com.maco.tresenraya.R;
 import com.maco.tresenraya.jsonMessages.HundirLaFlotaBarcos;
 
 import org.json.JSONException;
@@ -135,9 +134,9 @@ public class ColocarBarcosActivity extends ActionBarActivity {
                         tvMessage.setText("Barco de longitud " + longitud[nbarco]);
                     else {
                         tvMessage.setText("Se acabó");
+                        sendBarcos();
                         Intent i=new Intent(this, HundirLaFlotaActivity.class);
                         startActivity(i);
-                        sendBarcos();
                     }
                 }
             } else {
@@ -231,15 +230,16 @@ public class ColocarBarcosActivity extends ActionBarActivity {
         JSONParameter jspIdMatch=new JSONParameter("idMatch", ""+store.getIdMatch());
         HundirLaFlotaBarcos boat;
         boat = new HundirLaFlotaBarcos(this.squares);
-        JSONParameter jspBoat = new JSONParameter("squares", ""+boat);
         try {
-            JSONMessage jsm= Proxy.get().postJSONOrderWithResponse("SendBarcos.action", jspIdUser, jspIdGame, jspIdMatch, jspBoat);
-            if (!jsm.getType().equals(OKMessage.class.getSimpleName())) {
+            JSONMessage jsm= Proxy.get().postJSONOrderWithResponse("SendBarcos.action", boat, jspIdUser, jspIdGame, jspIdMatch);
+            if (jsm.getType().equals(OKMessage.class.getSimpleName())) {
+                Toast.makeText(this, "Succesfully sent", Toast.LENGTH_LONG).show();
+            } else {
                 ErrorMessage em=(ErrorMessage) jsm;
-                tvMessage.setText(em.getText());
+                Toast.makeText(this, em.getText(), Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }
