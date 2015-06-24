@@ -1,6 +1,7 @@
 package edu.uclm.esi.common.jsonMessages;
 
 import com.maco.tresenraya.jsonMessages.GameListMessage;
+import com.maco.tresenraya.jsonMessages.HundirLaFlotaBarcos;
 import com.maco.tresenraya.jsonMessages.HundirLaFlotaBoardMessage;
 import com.maco.tresenraya.jsonMessages.HundirLaFlotaWaitingMessage;
 import com.maco.tresenraya.jsonMessages.TresEnRayaBoardMessage;
@@ -33,6 +34,8 @@ public class JSONMessagesBuilder {
 			return new HundirLaFlotaBoardMessage(jso);
 		if (jso.get("type").equals(HundirLaFlotaWaitingMessage.class.getSimpleName()))
 			return new HundirLaFlotaWaitingMessage(jso.getString("text"));
+		if(jso.get("type").equals(HundirLaFlotaBarcos.class.getSimpleName()))
+			return new HundirLaFlotaBarcos(jso.getString("text"));
 		return null;
 	}
 }

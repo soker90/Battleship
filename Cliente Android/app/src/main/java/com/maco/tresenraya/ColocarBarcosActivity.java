@@ -219,9 +219,6 @@ public class ColocarBarcosActivity extends ActionBarActivity {
 
     }
 
-    /**************
-    //No funciona
-     **************/
 
     private void sendBarcos(){
         Store store=Store.get();
@@ -229,7 +226,8 @@ public class ColocarBarcosActivity extends ActionBarActivity {
         JSONParameter jspIdGame=new JSONParameter("idGame", ""+store.getIdGame());
         JSONParameter jspIdMatch=new JSONParameter("idMatch", ""+store.getIdMatch());
         HundirLaFlotaBarcos boat;
-        boat = new HundirLaFlotaBarcos(this.squares);
+        String Ssquares = toStringofChar(this.squares);
+        boat = new HundirLaFlotaBarcos(Ssquares);
         try {
             JSONMessage jsm= Proxy.get().postJSONOrderWithResponse("SendBarcos.action", boat, jspIdUser, jspIdGame, jspIdMatch);
             if (jsm.getType().equals(OKMessage.class.getSimpleName())) {
@@ -241,5 +239,16 @@ public class ColocarBarcosActivity extends ActionBarActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private String toStringofChar(char[][] c){
+        String s = "";
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                s += c[i][j];
+            }
+        }
+
+        return s;
     }
 }
