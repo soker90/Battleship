@@ -88,4 +88,11 @@ public class Game {
 			throw new Exception("You are not playing this match");
 		return match;
 	}
+	
+	public void remove(int idMatch) throws Exception {
+		Match match=this.matches.get(idMatch);
+		if (match==null)
+			throw new Exception("Match not found");
+		this.matches.remove(idMatch);
+	}
 }

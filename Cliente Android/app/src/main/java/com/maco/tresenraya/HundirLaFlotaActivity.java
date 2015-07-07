@@ -1,5 +1,6 @@
 package com.maco.tresenraya;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.maco.tresenraya.jsonMessages.HundirLaFlotaMatchReadyMessage;
 import com.maco.tresenraya.jsonMessages.HundirLaFlotaMovement;
 import com.maco.tresenraya.jsonMessages.HundirLaFlotaWaitingMessage;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +24,7 @@ import edu.uclm.esi.common.androidClient.http.Proxy;
 import edu.uclm.esi.common.jsonMessages.ErrorMessage;
 import edu.uclm.esi.common.jsonMessages.JSONMessage;
 import edu.uclm.esi.common.jsonMessages.JSONParameter;
+import edu.uclm.esi.common.jsonMessages.OKMessage;
 
 public class HundirLaFlotaActivity extends ActionBarActivity {
 	private HundirLaFlota match;
@@ -31,6 +32,7 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 	private TextView tvMessage;
 	private TextView tvOpponent;
 	private Button[] btns;
+	private Button btnAbandonar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,15 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 				cont++;
 			}
 		}
+
+		this.btnAbandonar = (Button) this.findViewById(R.id.btnAbandonar);
+		this.btnAbandonar.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				abandonarPartida();
+			}
+		});
+
 
 		this.match=new HundirLaFlota(this);
 		loadMatch();
@@ -131,5 +142,28 @@ public class HundirLaFlotaActivity extends ActionBarActivity {
 		else
 			opponent=player1;
 		this.tvOpponent.setText("Playing against " + opponent);
+	}
+
+	private void abandonarPartida(){
+		Store store=Store.get();
+		JSONParameter jspIdUser=new JSONParameter("idUser", ""+store.getUser().getId());
+		JSONParameter jspIdMatch=new JSONParameter("idMatch", ""+store.getIdMatch());
+		JSONParameter jspIdGame=new JSONParameter("idGame", ""+store.getIdGame());
+		try {
+			JSONMessage jsm=Proxy.get().postJSONOrderWithResponse("AbandonarJuego.action", jspIdUser,jspIdGame, jspIdMatch);
+			if (jsm.getType().equals(OKMessage.class.getSimpleName())) {
+				Toast.makeText(this, "Has abandonado la partida", Toast.LENGTH_LONG).show();
+			} else {
+				ErrorMessage em=(ErrorMessage) jsm;
+				Toast.makeText(this, em.getText(), Toast.LENGTH_LONG).show();
+			}
+		} catch (Exception e) {
+			Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+		} finally {
+			Intent i=new Intent(this, GameListActivity.class);
+			startActivity(i);
+		}
+
+
 	}
 }

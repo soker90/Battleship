@@ -103,5 +103,11 @@ public class Manager {
 		return this.games.get(id);
 	}
 	
+	public void remove(int idGame, int idMatch) throws Exception{
+		Game g=this.games.get(idGame);
+		if (g==null)
+			throw new Exception("Unknown game");
+		g.remove(idMatch);
+	}
 	
 }

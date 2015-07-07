@@ -71,6 +71,10 @@
 			<result name="success" type="json"/>
 			<result name="error" type="json"/>
 		</action>
+		<action name="AbandonarJuego" class="com.maco.juegosEnGrupo.server.actions.AbandonarJuego">
+			<result name="success" type="json"/>
+			<result name="error" type="json"/>
+		</action>
 	</package>
 </struts>
 

@@ -37,6 +37,7 @@ public class HundirLaFota extends Match{
 	private final static int COLOCANDO = 0;
 	private final static int ESPERA = 1;
 	private final static int JUGANDO = 2;
+	private final static int FINALIZADO = 3;
 	private int estado;
 	
 	public HundirLaFota(Game game) {
@@ -55,7 +56,7 @@ public class HundirLaFota extends Match{
 		cont = new int[2];
 		cont[0] = 0;
 		cont[1] = 0;
-		estado = HundirLaFota.ESPERA;
+		estado = HundirLaFota.COLOCANDO;
 	}
 
 	@Override
@@ -274,6 +275,20 @@ public class HundirLaFota extends Match{
 		}
 		
 		return c;
+	}
+	
+	public void notifyAbandonar(User user) throws Exception{
+		if(this.players.size() == 2){
+			JSONMessage message = new ErrorMessage("Su oponente ha abandonado la partida.");
+			Notifier.get().post(this.getOponente(user), message);
+		}
+	}
+	
+	private User getOponente(User user) {
+		if(this.players.get(0) == user)
+			return this.players.get(1);
+		else
+			return this.players.get(0);
 	}
 
 }
